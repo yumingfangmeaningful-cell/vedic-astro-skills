@@ -3,3 +3,5 @@
 !requirements.txt
 __pycache__/
 .DS_Store
+venv/
+vedic-calc-env/
