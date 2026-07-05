@@ -3,3 +3,11 @@
 !requirements.txt
 __pycache__/
 .DS_Store
+
+# generated python environments (built by setup_env.py)
+venv/
+vedic-calc-env/
+*.venv/
+
+# local scratch / working files
+scratchpad_astro/
