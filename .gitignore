@@ -3,3 +3,12 @@
 !requirements.txt
 __pycache__/
 .DS_Store
+
+# 生成的分析报告与个人命盘数据——含出生时间地点等个人信息，不入库
+output/
+charts/
+命例/
+
+# Claude Code 个人设置
+.claude/settings.json
+.claude/settings.local.json
