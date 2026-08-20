@@ -1,5 +1,6 @@
 *.pdf
 *.txt
 !requirements.txt
+!sample_output.txt
 __pycache__/
 .DS_Store

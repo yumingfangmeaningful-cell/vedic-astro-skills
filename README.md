@@ -290,6 +290,24 @@ Planet-by-planet audit → D9 cross-validation → House diagnosis → Ten life 
 
 ---
 
+### ☯️ xu-ziping-bazi — 徐子平八字排盘与批命 / Bazi (Four Pillars) Skill
+
+独立附加 Skill，与吠陀六 Skill 互不依赖，可单独安装。来自 [mengke-wang/xuziping-bazi](https://github.com/mengke-wang/xuziping-bazi)（出品与 Skill 设计：王梦珂 Mengke，MIT License）。
+
+An independent bonus skill (no dependency on the six Vedic skills), vendored from [mengke-wang/xuziping-bazi](https://github.com/mengke-wang/xuziping-bazi).
+
+**"先排盘、再开口"** —— `paipan.py` 基于寿星天文历 [sxtwl](https://github.com/yuangu/sxtwl_cpp) 精确排四柱（立春分界、节气换月、真太阳时校正），输出五行、十神、旺衰证据、格局候选、喜用神与大运；AI 扮演北宋徐子平，只据盘中干支解读事业财运、家庭婚姻、健康流年、子女。
+
+```bash
+# 安装（以 Claude Code 为例，Codex/Antigravity 同理）
+cp -r vedic-astro-skills/claude-code/skills/xu-ziping-bazi ~/.claude/skills/
+pip install -r ~/.claude/skills/xu-ziping-bazi/requirements.txt   # 仅依赖 sxtwl
+```
+
+触发词 / Trigger：如 "八字"、"排八字"、"批命"。
+
+---
+
 ## 📁 项目结构 / Project Structure
 
 ```
@@ -324,12 +342,18 @@ vedic-astro-skills/
 │   │   └── SKILL.md                 # 职业分析
 │   ├── vedic-love/
 │   │   └── SKILL.md                 # 恋爱分析
-│   └── vedic-rectifier/
-│       ├── SKILL.md                 # 时间校准
+│   ├── vedic-rectifier/
+│   │   ├── SKILL.md                 # 时间校准
+│   │   ├── requirements.txt
+│   │   ├── resources/
+│   │   └── scripts/
+│   │       └── time_scan.py         # Lagna/D9 扫描器
+│   └── xu-ziping-bazi/              # 附加: 徐子平八字 (vendored)
+│       ├── SKILL.md                 # 批命提示词
+│       ├── paipan.py                # 四柱排盘引擎 (sxtwl)
 │       ├── requirements.txt
-│       ├── resources/
-│       └── scripts/
-│           └── time_scan.py         # Lagna/D9 扫描器
+│       ├── examples/
+│       └── tests/
 ├── claude-code/skills/              # Claude Code 版本 (同上)
 └── codex/skills/                    # Codex 原生版本（含 agents/openai.yaml）
 ```
