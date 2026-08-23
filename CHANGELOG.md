@@ -6,6 +6,19 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - 2026-08-23
+
+### 占卜三味收录 (Divination add-ons)
+
+- 收录 [wave2234/divination-skills](https://github.com/wave2234/divination-skills)（MIT）的三个 skill：`xiaoliuren`（小六壬）、`liuyao`（六爻纳甲）、`tarot`（塔罗 RWS）
+- 技能内容原样收录未改动；各 skill 目录内保留上游 LICENSE，README 与 License 段落标注出处
+- 三端同步：`antigravity/skills/`、`claude-code/skills/`、`codex/skills/`（含 `agents/openai.yaml` 接口声明）
+- 补充 `requirements.txt`（`cnlunar`）到 `xiaoliuren` 与 `liuyao`，对齐本仓库的按 skill 声明依赖惯例
+- `sync_skills.ps1` 同步列表扩展为 6 吠陀 + 3 占卜
+- 与吠陀主线完全独立，不影响 `vedic-*` 任何流程
+
+---
+
 ## [Unreleased] - 2026-06-09
 
 ### Codex 原生支持

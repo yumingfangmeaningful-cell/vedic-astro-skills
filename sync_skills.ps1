@@ -12,7 +12,9 @@ $codex = "$repo\codex\skills"
 $gemini = "C:\Users\14361\.gemini\config\skills"
 
 # 要同步的skill列表
-$skills = @("vedic-reader", "vedic-calculator", "vedic-core", "vedic-career", "vedic-love", "vedic-rectifier")
+# 吠陀本体 6 个 + 占卜三味 3 个 (vendored from wave2234/divination-skills, MIT)
+$skills = @("vedic-reader", "vedic-calculator", "vedic-core", "vedic-career", "vedic-love", "vedic-rectifier",
+            "xiaoliuren", "liuyao", "tarot")
 
 Write-Host "=== Vedic Skills 四端同步 ===" -ForegroundColor Cyan
 

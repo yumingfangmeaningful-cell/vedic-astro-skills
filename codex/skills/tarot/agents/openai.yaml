@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tarot Reading"
+  short_description: "Draw and interpret a Rider-Waite-Smith tarot spread"
+  default_prompt: "Use $tarot to draw and interpret a tarot spread for my question."

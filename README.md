@@ -27,6 +27,7 @@
 - [六Skill架构 / Architecture](#-六skill架构--architecture)
 - [快速开始 / Quick Start](#-快速开始--quick-start)
 - [各Skill说明 / Skill Details](#-各skill说明--skill-details)
+- [占卜三味 / Divination Add-ons](#-占卜三味--divination-add-ons)
 - [项目结构 / Project Structure](#-项目结构--project-structure)
 - [技术体系 / Technical Stack](#-技术体系--technical-stack)
 - [版本历史 / Version History](#-版本历史--version-history)
@@ -290,6 +291,56 @@ Planet-by-planet audit → D9 cross-validation → House diagnosis → Ten life 
 
 ---
 
+## 🎴 占卜三味 / Divination Add-ons
+
+> 吠陀六 Skill 之外的**附加技能包**，与占星主线相互独立，装不装都不影响 `vedic-*` 的运行。
+>
+> Optional add-ons alongside the six Vedic skills — fully independent, the `vedic-*` pipeline works with or without them.
+
+来源 / Upstream: **[wave2234/divination-skills](https://github.com/wave2234/divination-skills)**（MIT），原样收录，未改动技能内容。
+Vendored as-is under MIT; skill content unmodified.
+
+| Skill | 术数 / System | 起卦方式 / Casting modes |
+|:---|:---|:---|
+| **xiaoliuren** | 小六壬（马前课）三宫断卦 | 公历时间自动转农历 / 农历月日时 / 掷骰三数 / 直接报三宫卦名 |
+| **liuyao** | 六爻纳甲（京房筮法）排盘断卦 | 铜钱摇卦 / 公历时间 / 三数起卦 / 报卦名 / 报六爻爻象 |
+| **tarot** | 塔罗 Rider-Waite-Smith 78 张牌 | 单牌 / 三牌阵 / 凯尔特十字 / 自定张数 / 用户自报牌名 |
+
+### 安装 / Install
+
+```bash
+# Claude Code
+cp -r vedic-astro-skills/claude-code/skills/{xiaoliuren,liuyao,tarot} ~/.claude/skills/
+
+# Codex
+cp -r vedic-astro-skills/codex/skills/{xiaoliuren,liuyao,tarot} ~/.codex/skills/
+
+# Antigravity: 把 antigravity/skills/ 下这三个文件夹复制到你的 skills 目录
+```
+
+依赖 / Dependency：仅 `xiaoliuren` 与 `liuyao` 的**日期起卦模式**需要 `cnlunar`（农历与干支换算），其余模式和 `tarot` 只用 Python 标准库。
+
+```bash
+pip install cnlunar --break-system-packages
+```
+
+脚本零网络请求、零写盘，可离线运行。Scripts make no network calls and write nothing to disk.
+
+### 资料出处 / Provenance
+
+按上游作者的说明 / Per the upstream author:
+
+- **xiaoliuren** — 仓库主人早年自己学习整理的资料与笔记，非网络汇编。Hand-authored from the author's own study notes.
+- **liuyao** — 由 AI 检索公开资料后比对整理，取通行传统规则。AI-compiled from public sources.
+- **tarot** — 同为 AI 整理，以 Rider-Waite-Smith 体系为准。AI-compiled, RWS-based.
+
+取用前请自行判断。Evaluate before relying on them.
+
+> ⚠️ 占卜是文化实践与自省工具，不构成医疗、法律、投资或任何专业建议。
+> Divination is a cultural and introspective practice — not medical, legal, financial, or any other professional advice.
+
+---
+
 ## 📁 项目结构 / Project Structure
 
 ```
@@ -324,12 +375,31 @@ vedic-astro-skills/
 │   │   └── SKILL.md                 # 职业分析
 │   ├── vedic-love/
 │   │   └── SKILL.md                 # 恋爱分析
-│   └── vedic-rectifier/
-│       ├── SKILL.md                 # 时间校准
-│       ├── requirements.txt
-│       ├── resources/
+│   ├── vedic-rectifier/
+│   │   ├── SKILL.md                 # 时间校准
+│   │   ├── requirements.txt
+│   │   ├── resources/
+│   │   └── scripts/
+│   │       └── time_scan.py         # Lagna/D9 扫描器
+│   │
+│   │                                # ↓ 占卜三味 (vendored, MIT)
+│   ├── xiaoliuren/
+│   │   ├── SKILL.md                 # 小六壬三宫断卦
+│   │   ├── requirements.txt         # cnlunar
+│   │   ├── references/              # 理法/宫位/八卦/六神/合宫/分类
+│   │   └── scripts/
+│   │       └── qigua.py             # 起卦排盘
+│   ├── liuyao/
+│   │   ├── SKILL.md                 # 六爻纳甲断卦
+│   │   ├── requirements.txt         # cnlunar
+│   │   ├── references/              # 断卦/六亲/六神/应期/分类
+│   │   └── scripts/
+│   │       └── paigua.py            # 摇卦装卦
+│   └── tarot/
+│       ├── SKILL.md                 # 塔罗解读
+│       ├── references/              # 大/小阿卡纳 + 牌阵方法论
 │       └── scripts/
-│           └── time_scan.py         # Lagna/D9 扫描器
+│           └── draw.py              # 抽牌
 ├── claude-code/skills/              # Claude Code 版本 (同上)
 └── codex/skills/                    # Codex 原生版本（含 agents/openai.yaml）
 ```
@@ -388,3 +458,7 @@ If this project helps you, consider buying me a coffee:
 ## License
 
 MIT
+
+本仓库的 `xiaoliuren/`、`liuyao/`、`tarot/` 三个 skill 收录自 [wave2234/divination-skills](https://github.com/wave2234/divination-skills)，同为 MIT 许可，版权归原作者所有，各 skill 目录内保留了上游 LICENSE。
+
+The `xiaoliuren/`, `liuyao/`, and `tarot/` skills are vendored from [wave2234/divination-skills](https://github.com/wave2234/divination-skills) under MIT; copyright remains with the original author and the upstream LICENSE is kept inside each skill folder.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Liuyao Divination"
+  short_description: "Cast and read a Liuyao (Najia six-line) divination"
+  default_prompt: "Use $liuyao to cast a Liuyao divination for my question."

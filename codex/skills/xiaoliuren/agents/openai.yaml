@@ -1,0 +1,4 @@
+interface:
+  display_name: "Xiaoliuren Divination"
+  short_description: "Cast and read a Xiaoliuren (Ma Qian Ke) three-palace divination"
+  default_prompt: "Use $xiaoliuren to cast a Xiaoliuren divination for my question."
