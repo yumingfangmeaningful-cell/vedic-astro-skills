@@ -279,3 +279,4 @@ description: 吠陀占星(Vedic/Jyotish)恋爱时机分析引擎。当用户提�
 6. **语言自适应:** 使用与用户输入相同的语言输出报告
 7. **Dasha硬约束:** 时间窗口判断必须引用house_framework.md的正负面规则，禁止凭感觉判断
 8. **反确认偏误:** 感情分析只基于DK/UL/PK+5宫/7宫+Venus+D9，禁止基于用户感情经历
+9. **事实不凭记忆:** Q&A中涉及现实世界事实（政策/行业/地点）时，OmniSeek + web search 双开核实并标来源，禁止凭训练记忆作答。见vedic-core/resources/external_research.md

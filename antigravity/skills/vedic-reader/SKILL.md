@@ -360,6 +360,8 @@ for i, page in enumerate(doc):
 
   数据冲突处理：
     → 先核对出生日期/时间/地点、时区、Ayanamsa、Mean/True Node设置
+    → 时区/夏令时存疑（老日期、小地方、非中印地区）→ OmniSeek + web search 双开核实，
+      禁止凭记忆填；协议见 vedic-core/resources/external_research.md
     → 将差异写入"交叉验证报告"
     → 除有效PDF Shadbala外，不用PDF值覆盖calc
 
