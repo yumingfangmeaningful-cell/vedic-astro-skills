@@ -103,6 +103,44 @@ python vedic-calculator/scripts/setup_env.py
 >
 > The AI agent will auto-detect and run `setup_env.py` on first use. But **make sure Python 3.8~3.13 is installed on your system**.
 
+### Step 3: 接入 OmniSeek（推荐）/ Connect OmniSeek (recommended)
+
+星盘算得准，前提是**输入是对的**：历史时区、夏令时、坐标、事件日期。这些是"当前可验证事实"，
+不能靠模型的训练记忆——记忆会过期、会把记不清的数字补成看起来合理的值，而且**不报错**。
+时区错 1 小时 → Lagna 可能整体错一个星座 → 全盘结论作废。
+
+> **规则：需要当前可验证事实，或需要开放网够不到的深度时，默认 OmniSeek + web search 双开，不凭训练记忆。**
+>
+> **Rule: when the answer needs currently verifiable facts — or depth plain web search can't reach —
+> run OmniSeek and web search together by default. Never answer from training memory.**
+
+[OmniSeek](https://github.com/Battam1111/omniseek) 是自托管的 MCP 检索服务（跨语言、登录墙内、音视频、文献），
+全程跑在你自己的机器上，无云端、无遥测。
+
+```bash
+git clone https://github.com/Battam1111/omniseek.git && cd omniseek
+docker compose up -d
+docker compose logs omniseek          # 首次启动打印 bearer token
+curl -s http://127.0.0.1:8765/healthz # {"ok":true}
+```
+
+接入 Claude Code / Connect it to Claude Code：
+
+```bash
+claude mcp add --transport http omniseek http://127.0.0.1:8765/mcp \
+  --header "Authorization: Bearer <token>"
+```
+
+其他客户端（Codex / Antigravity 等）把 MCP 端点指向 `http://127.0.0.1:8765/mcp` 并带上同一个 Bearer token；
+token 存于 `~/.omniseek/credentials/omniseek_http.json`。
+
+**双开在什么场景生效、什么场景禁用（盘面数据、用户隐私、流派混入），完整协议见
+[`vedic-core/resources/external_research.md`](claude-code/skills/vedic-core/resources/external_research.md)。**
+
+> 不装也能用：skill 会自动降级为只走 web search，并在结论处标注"单通道核实"。
+>
+> Optional: without it the skills fall back to web search alone and label those facts as single-channel.
+
 ---
 
 ## 🏛️ 六Skill架构 / Architecture
@@ -318,6 +356,7 @@ vedic-astro-skills/
 │   ├── vedic-core/
 │   │   ├── SKILL.md                 # 核心分析引擎
 │   │   ├── resources/               # 参数/规则/框架
+│   │   │   └── external_research.md # 外部检索协议 (OmniSeek + web 双开)
 │   │   └── scripts/
 │   │       └── report_builder.py    # HTML 报告生成
 │   ├── vedic-career/

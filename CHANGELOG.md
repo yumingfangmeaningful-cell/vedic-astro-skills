@@ -8,6 +8,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased] - 2026-06-09
 
+### 外部检索：OmniSeek + Web Search 双开（2026-09-07）
+
+- 新增 `vedic-core/resources/external_research.md`：外部检索协议
+  - 规则：需要"当前可验证事实"或"开放网够不到的深度"时，默认 OmniSeek + web search 双开，不凭训练记忆
+  - 必须双开的场景：历史时区/夏令时、坐标与行政区变更、现实世界当前事实、公共事件日期、依赖版本、经典文献引证
+  - 禁止事项：检索结果不得覆盖 calculator 计算结果；不得混入其他流派；不得把用户姓名/完整出生信息/user_context 作为查询词；盲审阶段（core Step 1-3）不检索用户本人；外部事实不得反推盘面含义
+  - 降级路径：OmniSeek 不可用 → 只走 web search 并标注"单通道核实"；完全无网 → 标"未核实"，禁止编造
+- `vedic-calculator`：Step 2 坐标/时区速查表加铁规——夏令时年份、历史时区变更、县乡镇、非中印地区必须双开核实后再填（时区错 1 小时 → Lagna 可能整体错一个星座）
+- `vedic-rectifier`：Step 2/3 之间新增"事件日期核对"——公共事件双开核实，私人事件只回问用户、禁止外检
+- `vedic-career`：新增"现实世界事实核实"——行业/岗位/证书/政策等事实必须双开核实并标来源日期，且不得反过来改写盘面结论
+- `vedic-core`：新增"外部检索"章节（QA 阶段适用）+ 关键原则第 13 条
+- `vedic-reader` / `vedic-love`：加入时区核实与事实核实的指向性规则
+- README 新增「Step 3: 接入 OmniSeek」安装与接入说明（Docker + `claude mcp add`）
+- 三端（antigravity / claude-code / codex）同步
+
 ### Codex 原生支持
 
 - 新增 `codex/skills/`，包含全部6个skill及 `agents/openai.yaml`
